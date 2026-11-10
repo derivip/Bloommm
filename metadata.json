@@ -1,0 +1,6 @@
+{
+  "name": "Bloom",
+  "description": "A focused sanctuary, task priority planner, learning hub, and 24/7 AI companion for young people balancing school, work, and life struggles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

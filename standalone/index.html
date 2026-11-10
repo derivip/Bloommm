@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bloom - Empathetic Student-Worker Space</title>
+  <link rel="stylesheet" href="./bloom.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-gradient-aurora text-slate-100 min-h-screen">
+
+  <!-- Header Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <!-- Blooming Flower Logo -->
+        <div class="flower-icon-box">
+          <svg viewBox="0 0 24 24" class="flower-svg" fill="none">
+            <circle cx="12" cy="7" r="3" fill="#ffffff" fill-opacity="0.95"/>
+            <circle cx="16.3" cy="9.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+            <circle cx="16.3" cy="14.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+            <circle cx="12" cy="17" r="3" fill="#ffffff" fill-opacity="0.95"/>
+            <circle cx="7.7" cy="14.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+            <circle cx="7.7" cy="9.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+            <circle cx="12" cy="12" r="2.5" fill="#FDE047"/>
+          </svg>
+        </div>
+        <span class="brand-text">Bloom</span>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-btn active" id="tab-dashboard-btn" onclick="switchTab('dashboard')">
+          <span>📋</span> Dashboard
+        </button>
+        <button class="nav-btn" id="tab-bloomai-btn" onclick="switchTab('bloomai')">
+          <!-- Flower Logo for BloomAI -->
+          <svg viewBox="0 0 24 24" class="tab-flower-svg" fill="none">
+            <circle cx="12" cy="7" r="2.8" fill="#10B981" fill-opacity="0.9"/>
+            <circle cx="16.3" cy="9.5" r="2.8" fill="#10B981" fill-opacity="0.9"/>
+            <circle cx="16.3" cy="14.5" r="2.8" fill="#10B981" fill-opacity="0.9"/>
+            <circle cx="12" cy="17" r="2.8" fill="#10B981" fill-opacity="0.9"/>
+            <circle cx="7.7" cy="14.5" r="2.8" fill="#10B981" fill-opacity="0.9"/>
+            <circle cx="7.7" cy="9.5" r="2.8" fill="#10B981" fill-opacity="0.9"/>
+            <circle cx="12" cy="12" r="2.2" fill="#FDE047"/>
+          </svg>
+          BloomAI
+        </button>
+      </nav>
+
+      <div class="nav-controls">
+        <button class="control-btn" id="lofi-btn" onclick="toggleLofiMusic()" title="Toggle soft lo-fi background music">
+          🎵 <span id="lofi-text">Lo-Fi</span>
+        </button>
+        <button class="control-btn" id="theme-btn" onclick="toggleDayNight()" title="Toggle Day/Night mode">
+          ☀️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    
+    <!-- Bold Pop Culture Motivational Quote (Refreshes every 30s) -->
+    <section class="hero-quote-card">
+      <div class="quote-header">
+        <span class="tag">Cinematic Inspiration</span>
+        <span class="sep">·</span>
+        <span class="timer-tag" id="quote-countdown">Refreshes in 30s</span>
+      </div>
+      <h1 class="bold-white-quote" id="quote-text">
+        "You don't have to carry the whole mountain all at once. Just move the next stone."
+      </h1>
+      <div class="quote-source" id="quote-source">— Modern Folklore & Cinema</div>
+    </section>
+
+    <!-- TAB 1: DASHBOARD -->
+    <section id="dashboard-view" class="tab-view active-view">
+      
+      <!-- 5-Minute Procrastination Buster Sprint Banner -->
+      <div class="sprint-banner">
+        <div class="sprint-info">
+          <div class="sprint-badge">⏱️</div>
+          <div>
+            <h3>5-Minute Procrastination Buster</h3>
+            <p>Just start, don't finish. Lower the barrier to zero.</p>
+          </div>
+        </div>
+        <div class="sprint-controls">
+          <span class="timer-digits" id="sprint-digits">5:00</span>
+          <button class="btn btn-primary" id="sprint-toggle-btn" onclick="toggleSprintTimer()">Start 5 Min</button>
+          <button class="btn btn-secondary" onclick="resetSprintTimer()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Task Input Form -->
+      <div class="card task-input-card">
+        <form id="task-form" onsubmit="handleAddTask(event)">
+          <div class="input-row">
+            <input type="text" id="task-input" placeholder="What do you need to get done? (e.g. Finish History DBQ, text manager)" required />
+            <button type="submit" class="btn btn-primary">+ Add Task</button>
+          </div>
+          <div class="options-row">
+            <div class="select-group">
+              <label for="task-priority">Priority:</label>
+              <select id="task-priority">
+                <option value="high">High Priority (Urgent)</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority (Later)</option>
+              </select>
+            </div>
+            <div class="select-group">
+              <label for="task-category">Category:</label>
+              <select id="task-category">
+                <option value="school">School</option>
+                <option value="work">Job / Shift</option>
+                <option value="life">Personal / Life</option>
+                <option value="health">Rest / Health</option>
+              </select>
+            </div>
+            <span class="hint-text">✨ BloomAI will break tasks into 3 bite-sized micro-steps.</span>
+          </div>
+        </form>
+      </div>
+
+      <!-- Priority Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-chips">
+          <button class="filter-chip active" onclick="setPriorityFilter('all')">All Priorities</button>
+          <button class="filter-chip" onclick="setPriorityFilter('high')">High Priority</button>
+          <button class="filter-chip" onclick="setPriorityFilter('medium')">Medium</button>
+          <button class="filter-chip" onclick="setPriorityFilter('low')">Low</button>
+        </div>
+      </div>
+
+      <!-- Task List Area -->
+      <div id="task-list" class="task-list">
+        <!-- Rendered dynamically via bloom.js -->
+      </div>
+    </section>
+
+    <!-- TAB 2: BLOOMAI COMPANION -->
+    <section id="bloomai-view" class="tab-view hidden-view">
+      <div class="card chat-card">
+        <!-- BloomAI Header with Flower Logo -->
+        <div class="chat-header">
+          <div class="chat-brand">
+            <div class="flower-icon-box">
+              <svg viewBox="0 0 24 24" class="flower-svg" fill="none">
+                <circle cx="12" cy="7" r="3" fill="#ffffff" fill-opacity="0.95"/>
+                <circle cx="16.3" cy="9.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+                <circle cx="16.3" cy="14.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+                <circle cx="12" cy="17" r="3" fill="#ffffff" fill-opacity="0.95"/>
+                <circle cx="7.7" cy="14.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+                <circle cx="7.7" cy="9.5" r="3" fill="#ffffff" fill-opacity="0.95"/>
+                <circle cx="12" cy="12" r="2.5" fill="#FDE047"/>
+              </svg>
+            </div>
+            <div>
+              <h2>BloomAI</h2>
+              <span class="sub-badge">24/7 Empathetic Companion</span>
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="clearBloomChat()">Reset Chat</button>
+        </div>
+
+        <!-- Quick Ask Chips -->
+        <div class="quick-chips">
+          <span class="quick-label">Quick ask:</span>
+          <button class="chip" onclick="sendQuickPrompt('How do I ask my boss for fewer hours during exams?')">Boss & shifts</button>
+          <button class="chip" onclick="sendQuickPrompt('My guidance counselor told me to just buy a planner. Why dont adults get it?')">Counselor advice</button>
+          <button class="chip" onclick="sendQuickPrompt('I have a shift in 2 hours and havent touched my essay.')">Late essay</button>
+          <button class="chip" onclick="sendQuickPrompt('I am completely exhausted and cant focus on anything.')">Exhaustion</button>
+        </div>
+
+        <!-- Messages Thread -->
+        <div id="chat-messages" class="chat-messages">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Chat Input Form -->
+        <form id="chat-form" onsubmit="handleSendChatMessage(event)" class="chat-input-bar">
+          <input type="text" id="chat-input" placeholder="Type anything on your mind—no need to filter yourself..." />
+          <button type="submit" class="btn btn-primary send-btn">Send</button>
+        </form>
+        <div class="chat-footer-note">
+          🔒 Private in-session · Crisis? Text HOME to 741741 or call 988
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./bloom.js"></script>
+</body>
+</html>
